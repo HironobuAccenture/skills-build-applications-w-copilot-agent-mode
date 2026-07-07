@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 
+const API_ENDPOINT = "/api/activities/";
+
 function Activities() {
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState('');
-  const endpoint = '/api/activities/';
 
   useEffect(() => {
     async function loadActivities() {
       try {
-        const apiBaseUrl = import.meta.env.VITE_CODESPACE_NAME
-          ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev`
+        const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
+        const API_BASE_URL = codespaceName
+          ? `https://${codespaceName}-8000.app.github.dev`
           : 'http://localhost:8000';
-        const response = await fetch(`${apiBaseUrl}${endpoint}`);
+        const url = `${API_BASE_URL}${API_ENDPOINT}`;
+        const response = await fetch(url);
         const data = await response.json();
 
         if (Array.isArray(data)) {
