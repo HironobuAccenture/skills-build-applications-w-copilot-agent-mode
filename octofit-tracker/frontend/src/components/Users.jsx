@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
-const API_ENDPOINT = "/api/users/";
+const API_URL = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users/`
+  : 'http://localhost:8000/api/users/';
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -9,12 +11,7 @@ function Users() {
   useEffect(() => {
     async function loadUsers() {
       try {
-        const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-        const API_BASE_URL = codespaceName
-          ? `https://${codespaceName}-8000.app.github.dev`
-          : 'http://localhost:8000';
-        const url = `${API_BASE_URL}${API_ENDPOINT}`;
-        const response = await fetch(url);
+        const response = await fetch(API_URL);
         const data = await response.json();
 
         if (Array.isArray(data)) {
