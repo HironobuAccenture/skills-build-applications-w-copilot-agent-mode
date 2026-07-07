@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 function Users() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
+  const endpoint = '/api/users/';
 
   useEffect(() => {
     async function loadUsers() {
@@ -10,7 +11,7 @@ function Users() {
         const apiBaseUrl = import.meta.env.VITE_CODESPACE_NAME
           ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev`
           : 'http://localhost:8000';
-        const response = await fetch(`${apiBaseUrl}/api/users/`);
+        const response = await fetch(`${apiBaseUrl}${endpoint}`);
         const data = await response.json();
 
         if (Array.isArray(data)) {

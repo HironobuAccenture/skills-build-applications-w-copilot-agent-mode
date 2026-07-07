@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 function Leaderboard() {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState('');
+  const endpoint = '/api/leaderboard/';
 
   useEffect(() => {
     async function loadLeaderboard() {
@@ -10,7 +11,7 @@ function Leaderboard() {
         const apiBaseUrl = import.meta.env.VITE_CODESPACE_NAME
           ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev`
           : 'http://localhost:8000';
-        const response = await fetch(`${apiBaseUrl}/api/leaderboard/`);
+        const response = await fetch(`${apiBaseUrl}${endpoint}`);
         const data = await response.json();
 
         if (Array.isArray(data)) {
